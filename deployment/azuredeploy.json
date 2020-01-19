@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "name": "cloud5minsdemo",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/cloud5minsdemo-plan')]": "Resource",
+                "displayName": "cloud5minsdemo"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', 'cloud5minsdemo-plan')]"
+            ],
+            "properties": {
+                "name": "cloud5minsdemo",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'cloud5minsdemo-plan')]"
+            }
+        }
+        {
+            "name": "cloud5minsdemo-plan",
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F1",
+                "capacity": 1
+            },
+            "tags": {
+                "displayName": "cloud5minsdemo-plan"
+            },
+            "properties": {
+                "name": "cloud5minsdemo-plan"
+            }
+        }
+    ],
+    "outputs": {}
+}

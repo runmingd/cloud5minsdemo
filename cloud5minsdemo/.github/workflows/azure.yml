@@ -1,0 +1,39 @@
+on: [push,pull_request]
+env:
+  AZURE_WEBAPP_NAME: cloud5minsdemo
+  AZURE_GROUP_NAME: cloud5mins
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    # checkout the repo
+    - uses: actions/checkout@master
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.101 # Replace with specific dotnet core version
+
+    
+    # dotnet build and publish
+    - name: Build with dotnet
+      run: dotnet build ./cloud5minsdemo --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish ./cloud5minsdemo -c Release -o myapp 
+
+    - uses:azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS}}
+    - run:
+        az group create  -n cloud5mins -l eastus
+        az group deployment create -n ghaction -g cloud5mins --tempate-file deployment/azuredeploy.json
+
+    - name: 'Azure webapp deploy'
+      uses: azure/webapps-deploy@v1
+      with: 
+        app-name: ${{env.AZURE_WEBAPP_NAME}}
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }} # Define secret variable in repository settings as per action documentation
+        package: ./myapp 
