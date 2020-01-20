@@ -28,10 +28,10 @@ jobs:
     
     # dotnet build and publish
     - name: Build with dotnet
-      run: dotnet build ./cloudrddemo0123 --configuration Release
+      run: dotnet build ./cloud5minsdemo --configuration Release
     - name: dotnet publish
       run: |
-        dotnet publish ./cloudrddemo0123 -c Release -o myapp 
+        dotnet publish ./cloud5minsdemo -c Release -o myapp 
     
     - name: 'Azure webapp deploy'
       uses: azure/webapps-deploy@v1
