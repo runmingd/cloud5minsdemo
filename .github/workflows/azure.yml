@@ -10,6 +10,13 @@ jobs:
 
     # checkout the repo
     - uses: actions/checkout@master
+
+    - uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS}}
+    - run:
+        az group create  -n cloud5mins -l eastus
+        az group deployment create -n ghaction -g cloud5mins  --template-file deployment/azuredepoy.json 
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -23,17 +30,9 @@ jobs:
     - name: dotnet publish
       run: |
         dotnet publish ./cloud5minsdemo -c Release -o myapp 
-
-    - uses: azure/login@v1
-      with:
-          creds: ${{ secrets.AZURE_CREDENTIALS}}
-    - run:
-        az group create  -n cloud5mins -l eastus
-        az group deployment create -n ghaction -g cloud5mins --template-uri https://github.com/runmingd/cloud5minsdemo/tree/master/deployment/azuredeploy.json
-
+    
     - name: 'Azure webapp deploy'
       uses: azure/webapps-deploy@v1
       with: 
-        app-name: ${{env.AZURE_WEBAPP_NAME}}
-        publish-profile: ${{ secrets.azureWebAppPublishProfile }} # Define secret variable in repository settings as per action documentation
+        app-name: ${{env.AZURE_WEBAPP_NAME}}        
         package: ./myapp 
