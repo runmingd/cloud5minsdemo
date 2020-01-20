@@ -1,7 +1,7 @@
 on: [push,pull_request]
 env:
-  AZURE_WEBAPP_NAME: cloud5minsdemo
-  AZURE_GROUP_NAME: cloud5mins
+  AZURE_WEBAPP_NAME: cloudrddemo0123
+  AZURE_GROUP_NAME: cloudrd0123
 
 jobs:
   build-and-deploy:
@@ -16,9 +16,9 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS}}
 
     - name: azure  create group
-      run: az group create  -n cloud5mins -l eastus
+      run: az group create  -n cloudrd0123 -l eastus
     - name: azure  create group deployment
-      run: az group deployment create -n ghaction -g cloud5mins  --template-file deployment/azuredeploy.json 
+      run: az group deployment create -n ghaction -g cloudrd0123  --template-file deployment/azuredeploy.json 
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -28,10 +28,10 @@ jobs:
     
     # dotnet build and publish
     - name: Build with dotnet
-      run: dotnet build ./cloud5minsdemo --configuration Release
+      run: dotnet build ./cloudrddemo0123 --configuration Release
     - name: dotnet publish
       run: |
-        dotnet publish ./cloud5minsdemo -c Release -o myapp 
+        dotnet publish ./cloudrddemo0123 -c Release -o myapp 
     
     - name: 'Azure webapp deploy'
       uses: azure/webapps-deploy@v1

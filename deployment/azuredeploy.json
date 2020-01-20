@@ -5,24 +5,24 @@
     "variables": {},
     "resources": [
         {
-            "name": "cloud5minsdemo",
+            "name": "cloudrddemo0123",
             "type": "Microsoft.Web/sites",
             "apiVersion": "2016-08-01",
             "location": "[resourceGroup().location]",
             "tags": {
-                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/cloud5minsdemo-plan')]": "Resource",
-                "displayName": "cloud5minsdemo"
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/cloudrddemo0123-plan')]": "Resource",
+                "displayName": "cloudrddemo0123"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', 'cloud5minsdemo-plan')]"
+                "[resourceId('Microsoft.Web/serverfarms', 'cloudrddemo0123-plan')]"
             ],
             "properties": {
-                "name": "cloud5minsdemo",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'cloud5minsdemo-plan')]"
+                "name": "cloudrddemo0123",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'cloudrddemo0123-plan')]"
             }
         },
         {
-            "name": "cloud5minsdemo-plan",
+            "name": "cloudrddemo0123-plan",
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
             "location": "[resourceGroup().location]",
@@ -31,10 +31,10 @@
                 "capacity": 1
             },
             "tags": {
-                "displayName": "cloud5minsdemo-plan"
+                "displayName": "cloudrddemo0123-plan"
             },
             "properties": {
-                "name": "cloud5minsdemo-plan"
+                "name": "cloudrddemo0123-plan"
             }
         }
     ],
