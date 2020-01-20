@@ -20,7 +20,7 @@
                 "name": "cloud5minsdemo",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'cloud5minsdemo-plan')]"
             }
-        }
+        },
         {
             "name": "cloud5minsdemo-plan",
             "type": "Microsoft.Web/serverfarms",
