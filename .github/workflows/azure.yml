@@ -14,7 +14,10 @@ jobs:
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS}}
+
+    - name: azure  create group
       run: az group create  -n cloud5mins -l eastus
+    - name: azure  create group deployment
       run: az group deployment create -n ghaction -g cloud5mins  --template-file deployment/azuredepoy.json 
     
     - name: Setup .NET Core
